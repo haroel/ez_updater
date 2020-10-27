@@ -1,0 +1,6 @@
+framework module ez_updater {
+  umbrella header "ez_updater-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,16 @@
+PODS:
+  - ez_updater (0.1.0)
+
+DEPENDENCIES:
+  - ez_updater (from `../`)
+
+EXTERNAL SOURCES:
+  ez_updater:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  ez_updater: 65fe055f23b5efffb940735e906d2a3e09aa1028
+
+PODFILE CHECKSUM: 19c1951ad29a306263af14e9e6cc79f6475519d3
+
+COCOAPODS: 1.10.0.beta.2
