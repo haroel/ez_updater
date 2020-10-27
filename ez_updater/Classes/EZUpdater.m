@@ -95,12 +95,15 @@ static EZUpdater *_shareUpdater = nil;
         NSString * appstoreID = appInfo[@"trackId"];
         NSString *releaseNotes = appInfo[@"releaseNotes"];
         UIAlertController* alertController = [UIAlertController alertControllerWithTitle:title message:releaseNotes preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *closeAct = [UIAlertAction actionWithTitle:@"NotNow" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *closeAct = [UIAlertAction actionWithTitle:@"Not Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         }];
         [alertController addAction:closeAct];
         
         UIAlertAction *updateAct = [UIAlertAction actionWithTitle:@"Update" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSString *storeURL = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@?mt=8",appstoreID];
+#if TARGET_IPHONE_SIMULATOR
+            storeURL = [NSString stringWithFormat:@"https://apps.apple.com/app/id%@",appstoreID];
+#endif
             NSLog(@"-----[EZUpdater] openURL %@",storeURL);
             if (@available(iOS 10.0, *)) {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:storeURL] options:@{} completionHandler:nil];
@@ -168,8 +171,6 @@ static EZUpdater *_shareUpdater = nil;
                                           NSLog(@"-----[EZUpdater]  error = %@",error);
                                           appstoreHandler(error,nil);
                                       } else {
-                                          NSString * str  =[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                          NSLog(@"-----[EZUpdater]  response = %@",str);
                                           NSError *error;
                                           NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                                           if (!jsonResponse) {
